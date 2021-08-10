@@ -7,6 +7,7 @@ Ulises Marian
 
 
 
+Q1. Create Table and Tablespaces  Q1. Based on the schema in Assignment 6, create tables with  constraints. Consider using the following constraints as appropriate Primary Key, Foreign key, Unique, Null or Check. 
 
 
 SQL> CREATE TABLE COLLEGE
@@ -189,6 +190,9 @@ SQL> CREATE TABLESPACE college_information
 
 
 
+
+
+Q2. Project which tables will increase quickly and implement partitioning types in at least 2 tables in your schema. Explain why these partitioning types would be useful in the context of your implementation. 
 
 
 Since the number of new students and (employees) keeps increasing every quarter/semester by the thousands, the USER table will hold lots of data, and in order to make data retrieval faster, I've decided to partition the LASTNAME column by range. By letter of the alphabet. So, if you know the last name of a student, (e.g., Benzema), we can simply search for Benzema among the rest of the lastnames starting with 'B'.
