@@ -51,6 +51,9 @@ SQL> select st.*, p.*
 
 
 
+
+How can you improve your DB Schema further. Make four recommendations.
+
 RECOMMENDATIONS:
 1.- I should name the 'ID' column of each table after each table's name. That is, I should name the 'ID' column in the STUDENT_REGISTRATION table something like: 'Registration_ID', rather than simply 'ID', to eliminate ambiguity when seeing the report, and not knowing which 'ID' is being displayed.
 2.- I should reformat the column names and sizes, so that they don't look neither too tight nor too wide apart.
