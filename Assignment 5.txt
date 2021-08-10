@@ -7,7 +7,7 @@ Ulises Marian
 
 
 
-1a.
+1a. Create a query that displays the employees names and indicates the amounts of their salaries through asterisks. Each asterisk signifies hundred dollars. Sort the data in descending order of salary. Label the column EMPLOYEE_AND_THEIR_SALARIES.
 
 
 SQL> SELECT CONCAT(ename, RPAD('*', (TRUNC(sal, -2)/100), '*')) "EMPLOYEE_AND_THEIR_SALARIES"
@@ -39,11 +39,8 @@ MILLER	  *************
 
 
 
-
-
-
-
-1b.
+1b. Display the employees name, username, hire date, salary and salary review date, which is the first Monday after six months of service. Label the column REVIEW. Format the dates to appear in the format mm/dd/yy. Salary should be rounded. Username is first two letters of the name 
+in the lower case.
 
 
 SQL> SELECT ename, LOWER(SUBSTR(ename, 1, 2)) "USERNAME",
@@ -76,11 +73,7 @@ MILLER	   mi	    01/23/82	   1300 07/26/82
 
 
 
-
-
-
-
-1c.
+1c. Use subquery to display all employees, in department location 'BOSTON' with a salary of greater than $1000.
 
 
 SQL> SELECT ename
@@ -96,12 +89,7 @@ no rows selected
 
 
 
-
-
-
-
-
-2a.
+2a. Write a query to display the employee name, job, and hire date for all employees who started between 01/01/81 to 12/31/81. Concatenate the name and job together, separated by a space and comma, and label the column Employees.
 
 
 SQL> SELECT ename || ', ' || job "EMPLOYEES"
@@ -123,12 +111,3 @@ FORD	  , ANALYST
 
 10 rows selected.
 
-
-
-
-
-2b.
-
-A correlated subquery is used when we need to reference columns from the table of the outer query. They are particularly useful when the results of the outer query are necessary for answering a problem with multiple parts.
-
-An inline view is a query in the FROM CLAUSE, which can contain multiple columns.
