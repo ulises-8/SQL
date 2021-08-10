@@ -1,0 +1,185 @@
+Oracle SQL
+Lab Assignment #3
+Ulises Marian
+0936
+07/16/2021
+07/16/2021
+
+
+1.
+
+SQL> select m.ename "MGR NAME", e.ename "EMPLOYEE NAME", e.empno "EMPLOYEE NUMBER", e.hiredate "HIREDATE"
+  2  from emp e, emp m
+  3  where m.empno = e.mgr and (m.ename LIKE 'K%' OR m.ename LIKE 'M%' OR m.ename LIKE 'S%');
+
+MGR NAME   EMPLOYEE N EMPLOYEE NUMBBER HIREDATE
+---------- ---------- ---------------- ---------
+SCOTT	   ADAMS		  7876 12-JAN-83
+KING	   BLAKE		  7698 01-MAY-81
+KING	   CLARK		  7782 09-JUN-81
+KING	   JONES		  7566 02-APR-81
+
+
+
+
+2.
+
+
+SQL> select e.ename "EMPLOYEE", c.ename "COLLEAGUE", e.deptno "DEPTNO", d.dname "DEPT NAME"
+  2  from emp e, emp c, dept d
+  3  where e.deptno = c.deptno and e.deptno = d.deptno and e.empno <> c.empno 
+  4  order by DEPTNO;
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+KING	   CLARK	      10 ACCOUNTING
+KING	   MILLER	      10 ACCOUNTING
+CLARK	   KING 	      10 ACCOUNTING
+CLARK	   MILLER	      10 ACCOUNTING
+MILLER	   KING 	      10 ACCOUNTING
+MILLER	   CLARK	      10 ACCOUNTING
+ADAMS	   SCOTT	      20 RESEARCH
+ADAMS	   SMITH	      20 RESEARCH
+ADAMS	   FORD 	      20 RESEARCH
+ADAMS	   JONES	      20 RESEARCH
+SCOTT	   ADAMS	      20 RESEARCH
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+SCOTT	   SMITH	      20 RESEARCH
+SCOTT	   FORD 	      20 RESEARCH
+SCOTT	   JONES	      20 RESEARCH
+SMITH	   ADAMS	      20 RESEARCH
+SMITH	   SCOTT	      20 RESEARCH
+SMITH	   FORD 	      20 RESEARCH
+SMITH	   JONES	      20 RESEARCH
+FORD	   ADAMS	      20 RESEARCH
+FORD	   SCOTT	      20 RESEARCH
+FORD	   SMITH	      20 RESEARCH
+FORD	   JONES	      20 RESEARCH
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+JONES	   ADAMS	      20 RESEARCH
+JONES	   SCOTT	      20 RESEARCH
+JONES	   SMITH	      20 RESEARCH
+JONES	   FORD 	      20 RESEARCH
+WARD	   JAMES	      30 SALES
+WARD	   ALLEN	      30 SALES
+WARD	   MARTIN	      30 SALES
+WARD	   BLAKE	      30 SALES
+WARD	   TURNER	      30 SALES
+JAMES	   WARD 	      30 SALES
+JAMES	   ALLEN	      30 SALES
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+JAMES	   MARTIN	      30 SALES
+JAMES	   BLAKE	      30 SALES
+JAMES	   TURNER	      30 SALES
+ALLEN	   WARD 	      30 SALES
+ALLEN	   JAMES	      30 SALES
+ALLEN	   MARTIN	      30 SALES
+ALLEN	   BLAKE	      30 SALES
+ALLEN	   TURNER	      30 SALES
+MARTIN	   WARD 	      30 SALES
+MARTIN	   JAMES	      30 SALES
+MARTIN	   ALLEN	      30 SALES
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+MARTIN	   BLAKE	      30 SALES
+MARTIN	   TURNER	      30 SALES
+BLAKE	   WARD 	      30 SALES
+BLAKE	   JAMES	      30 SALES
+BLAKE	   ALLEN	      30 SALES
+BLAKE	   MARTIN	      30 SALES
+BLAKE	   TURNER	      30 SALES
+TURNER	   WARD 	      30 SALES
+TURNER	   JAMES	      30 SALES
+TURNER	   ALLEN	      30 SALES
+TURNER	   MARTIN	      30 SALES
+
+EMPLOYEE   COLLEAGUE	  DEPTNO DEPT NAME
+---------- ---------- ---------- --------------
+TURNER	   BLAKE	      30 SALES
+
+56 rows selected.
+
+
+
+
+
+
+
+3.
+
+SQL> select dname, loc
+  2  from dept, emp
+  3  where emp.job = 'CLERK' and emp.deptno = dept.deptno;
+
+DNAME	       LOC
+-------------- -------------
+ACCOUNTING     NEW YORK
+RESEARCH       DALLAS
+RESEARCH       DALLAS
+SALES	       CHICAGO
+
+
+
+
+
+
+
+
+
+4.
+
+SQL> select e.empno, e.ename, d.dname, d.loc
+  2  from emp e, dept d
+  3  where e.deptno (+) = d.deptno and d.deptno in (20, 50);
+
+     EMPNO ENAME      DNAME	     LOC
+---------- ---------- -------------- -------------
+      7566 JONES      RESEARCH	     DALLAS
+      7902 FORD       RESEARCH	     DALLAS
+      7369 SMITH      RESEARCH	     DALLAS
+      7788 SCOTT      RESEARCH	     DALLAS
+      7876 ADAMS      RESEARCH	     DALLAS
+		      TRAINING	     SAN FRANCISCO
+
+
+
+
+
+
+5.
+
+SQL> select emp2.ename, dept.dname
+  2  from emp2                   
+  3  FULL OUTER JOIN dept    
+  4  ON emp2.deptno = dept.deptno;
+
+ENAME	   DNAME
+---------- --------------
+KING	   ACCOUNTING
+BLAKE	   SALES
+CLARK	   ACCOUNTING
+JONES	   RESEARCH
+MARTIN	   SALES
+ALLEN	   SALES
+TURNER	   SALES
+JAMES	   SALES
+WARD	   SALES
+FORD	   RESEARCH
+SMITH	   RESEARCH
+
+ENAME	   DNAME
+---------- --------------
+SCOTT
+ADAMS
+MILLER
+ZLATAN
+	   OPERATIONS
+
+16 rows selected.

@@ -1,0 +1,50 @@
+Oracle SQL
+Lab Assignment #8
+Ulises Marian
+0936
+08/04/2021
+08/03/2021
+
+
+
+SQL> insert into LOCATION values (8294317042, 'San Diego');
+SQL> insert into COLLEGE values (29041, 'San Diego College', '9711 Muir St. La Jolla', 619220199);
+SQL> insert into DEPARTMENT values (21345, 'Humanities', 8294317042, 29041);
+SQL> insert into COURSE values (90996, 82822, 'Philosophy of Language', 'Philosophy 101, Intro to Linguistics', 21345);
+SQL> insert into USERR values (44298111, 'Zlatan', 'Ibrahimovic', '10 Zlatan Av. Malmo, Sweden', 'zlatan@ibrahimovic.com', 1071010, 510731, 'Student');
+SQL> insert into SECTION values (33676, 7, 90996, 8294317042, '9:30', '11:00', '25-SEP-2021', '17-DEC-2021', 44298111);
+SQL> insert into SECTION values (32481, 9, 90996, 8294317042, '13:00', '14:30', '25-SEP-2021', '17-DEC-2021', 44298111);
+SQL> insert into PAYMENT values(37777, 'MasterCard');
+SQL> insert into STUDENT_REGISTRATION values(556123, 44298111, 33676, 1, 37777);
+
+
+
+SQL> select d.name DEPARTMENT, c.name COURSE, s.*
+  2  from DEPARTMENT d, COURSE c, SECTION s
+  3  where d.ID = c.DEPTID;
+
+DEPARTMENT				 COURSE 				ID  SECTIONNO	COURSEID LOCATIONID STARTT ENDTIM STARTDATE		    ENDDATE			  USERID
+---------------------------------------- ------------------------------ ---------- ---------- ---------- ---------- ------ ------ ------------------------- ------------------------- ----------
+Humanities				 Philosophy of Language 	     33676	    7	   90996 8294317042 9:30   11:00  25-SEP-2021		    17-DEC-2021 		44298111
+Humanities				 Philosophy of Language 	     32481	    9	   90996 8294317042 13:00  14:30  25-SEP-2021		    17-DEC-2021 		44298111
+
+
+
+
+SQL> select st.*, p.*
+  2  from STUDENT_REGISTRATION st, PAYMENT p
+  3  where st.PAYMENTID = p.id;
+
+	ID  STUDENTID  SECTIONID  FEESTATUS  PAYMENTID	       ID NAME
+---------- ---------- ---------- ---------- ---------- ---------- ------------------------------
+    556123   44298111	   33676	  1	 37777	    37777 MasterCard
+
+
+
+
+RECOMMENDATIONS:
+1.- I should name the 'ID' column of each table after each table's name. That is, I should name the 'ID' column in the STUDENT_REGISTRATION table something like: 'Registration_ID', rather than simply 'ID', to eliminate ambiguity when seeing the report, and not knowing which 'ID' is being displayed.
+2.- I should reformat the column names and sizes, so that they don't look neither too tight nor too wide apart.
+3.- Regarding the FEESTATUS, I should have done it VARCHAR2 instead of NUMBER, because when looking at the student registration report, '1' under FEESTATUS isn't clear. So by doing VARCHAR2, I could have written either 'PAID', 'PENDING', 'UNPAID'. A clear description of the feestatus.
+4.- I should add more constraints - such as Unique, Null and Check. To make sure, for instance, that no two colleges with the same name be added. To check for not null when necessary, i.e., to make sure no null values are passed when input is required.
+

@@ -1,0 +1,182 @@
+Oracle SQL
+Lab Assignment #4
+Ulises Marian
+0936
+07/19/2021
+07/18/2021
+
+
+
+1)
+
+#using self join
+
+SQL> SELECT e.mgr, MIN(ee.sal) SAL
+  2  FROM emp e, emp ee
+  3  WHERE e.mgr = ee.mgr AND (e.mgr IS NOT NULL)
+  4  HAVING min(ee.sal) >= 1000
+  5  GROUP BY e.mgr
+  6  ORDER BY MIN(ee.sal) DESC;
+
+       MGR	  SAL
+---------- ----------
+      7566	 3000
+      7839	 2450
+      7782	 1300
+      7788	 1100
+
+
+
+#using inner join
+
+SQL> SELECT e.mgr, MIN(ee.sal) SAL
+  2  FROM emp e INNER JOIN emp ee    
+  3  ON e.mgr = ee.mgr
+  4  where e.mgr IS NOT NULL
+  5  HAVING min(ee.sal) >= 1000
+  6  GROUP BY e.mgr
+  7  ORDER BY MIN(ee.sal) DESC;
+
+       MGR	  SAL
+---------- ----------
+      7566	 3000
+      7839	 2450
+      7782	 1300
+      7788	 1100
+
+
+
+
+
+
+
+2)
+
+
+SQL> SELECT d.dname "DNAME", d.loc "LOC",   
+  2  COUNT(e.deptno) "NUMBER OF PEOPLE",
+  3  AVG(e.sal) "SALARY"
+  4  FROM dept d FULL OUTER JOIN emp e
+  5  ON d.deptno = e.deptno
+  6  GROUP BY d.dname, d.loc;
+
+DNAME	       LOC	     NUMBER OF PEOPLE	  SALARY
+-------------- ------------- ---------------- ----------
+ACCOUNTING     NEW YORK 		    3 2916.66667
+SALES	       CHICAGO			    6 1566.66667
+RESEARCH       DALLAS			    5	    2175
+OPERATIONS     BOSTON			    0
+
+
+
+
+
+
+
+3) 
+
+
+SQL> SELECT d.dname, s.grade, e.sal, AVG (NVL(ee.comm, 0)) "AVERAGE COMMISSION"
+  2  FROM salgrade s
+  3  INNER JOIN emp e ON e.sal BETWEEN s.losal AND s.hisal
+  4  INNER JOIN dept d ON d.deptno = e.deptno
+  5  INNER JOIN emp ee ON d.deptno = ee.deptno
+  6  WHERE e.sal = (SELECT MIN(ee.sal) FROM emp ee WHERE ee.deptno = e.deptno)
+  7  GROUP BY d.deptno, d.dname, s.grade, e.sal;
+
+DNAME		    GRADE	 SAL AVERAGE COMMISSION
+-------------- ---------- ---------- ------------------
+SALES			1	 950	     366.666667
+RESEARCH		1	 800		      0
+ACCOUNTING		2	1300		      0
+
+
+
+
+
+
+
+
+
+
+4)
+- COUNT(*) returns the number of rows in a table
+
+SQL> select count(*)
+  2  from emp;
+
+  COUNT(*)
+----------
+	14
+
+
+
+- COUNT(col_name)returns the numbers of nonnull rows in that column (col_name)
+e.g., return the number of nonnull rows in the comm column
+
+SQL> select COUNT(comm)
+  2  from emp;
+
+COUNT(COMM)
+-----------
+	  4
+
+
+
+- COUNT(DISTINCT(col_name)) returns the number of unique and nonnull values
+
+e.g., This will return '5', the count of (unique) jobs. Thus, clerk, analyst, manager, president, and salesman (regardless of how many times any of the jobs is repeated).
+
+ SQL> SELECT COUNT(DISTINCT(job)) 
+  2  from emp;
+
+COUNT(DISTINCT(JOB))
+--------------------
+		   5
+
+
+
+- COUNT(ALL(col_name)), works just lke COUNT(col_name), it returns the numbers of nonnull rows in that column
+
+
+SQL> select count(all(comm))
+  2  from emp;
+
+COUNT(ALL(COMM))
+----------------
+	       4
+
+It returns 4, just like COUNT(comm)
+
+
+
+
+
+
+
+5) 
+
+SQL> SELECT empno, ename, sal, TRUNC(sal + sal * .15) "NEW SALARY"
+  2  FROM emp;
+
+     EMPNO ENAME	     SAL NEW SALARY
+---------- ---------- ---------- ----------
+      7839 KING 	    5000       5750
+      7698 BLAKE	    2850       3277
+      7782 CLARK	    2450       2817
+      7566 JONES	    2975       3421
+      7654 MARTIN	    1250       1437
+      7499 ALLEN	    1600       1840
+      7844 TURNER	    1500       1725
+      7900 JAMES	     950       1092
+      7521 WARD 	    1250       1437
+      7902 FORD 	    3000       3450
+      7369 SMITH	     800	920
+
+     EMPNO ENAME	     SAL NEW SALARY
+---------- ---------- ---------- ----------
+      7788 SCOTT	    3000       3450
+      7876 ADAMS	    1100       1265
+      7934 MILLER	    1300       1495
+
+14 rows selected.

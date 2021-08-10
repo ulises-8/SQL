@@ -1,0 +1,196 @@
+Oracle SQL
+Lab Assignment #7
+Ulises Marian
+0936
+07/31/2021
+07/31/2021
+
+
+
+
+
+SQL> CREATE TABLE COLLEGE
+  2  (ID NUMBER(8),
+  3  NAME VARCHAR2(30),
+  4  ADDRESS VARCHAR2(100),
+  5  TELNO NUMBER(15),
+  6  CONSTRAINT college_id_pk PRIMARY KEY(ID))
+
+Table created.
+
+
+
+SQL> CREATE TABLE DEPARTMENT
+  2  (ID NUMBER (5),
+  3  NAME VARCHAR2(40),
+  4  LOCID NUMBER(10),
+  5  COLLEGEID NUMBER(5),
+  6  CONSTRAINT DEPARTMENT_ID_PK PRIMARY KEY(ID),
+  7  CONSTRAINT DEPARTMENT_COLLEGEID_FK FOREIGN KEY(COLLEGEID) REFERENCES COLLEGE(ID));
+
+Table created.
+
+
+
+SQL> CREATE TABLE LOCATION
+  2  (ID NUMBER(10),
+  3  NAME VARCHAR2 (40),
+  4  CONSTRAINT location_id_pk PRIMARY KEY(ID));
+
+Table created.
+
+
+
+SQL> CREATE TABLE USERR
+  2  (ID NUMBER(8),
+  3  FIRSTNAME VARCHAR2(20),
+  4  LASTNAME VARCHAR2(20),
+  5  ADDRESS VARCHAR2(50),
+  6  EMAIL VARCHAR2(50),
+  7  TELNO NUMBER(15),
+  8  RESIDENTID NUMBER(6),
+  9  TYPE VARCHAR2(20),
+ 10  CONSTRAINT user_id_pk PRIMARY KEY(ID))
+     PARTITIONING BY RANGE(LASTNAME)
+     	(PARTITION lastname_1 VALUES LESS THAN ('a')
+	(PARTITION lastname_2 VALUES LESS THAN ('b')
+	(PARTITION lastname_3 VALUES LESS THAN ('c')
+	(PARTITION lastname_4 VALUES LESS THAN ('d')
+	(PARTITION lastname_5 VALUES LESS THAN ('e')
+	(PARTITION lastname_6 VALUES LESS THAN ('f')
+	(PARTITION lastname_7 VALUES LESS THAN ('g')
+	(PARTITION lastname_8 VALUES LESS THAN ('h')
+	(PARTITION lastname_9 VALUES LESS THAN ('i')
+	(PARTITION lastname_10 VALUES LESS THAN ('j')
+	(PARTITION lastname_11 VALUES LESS THAN ('k')
+	(PARTITION lastname_12 VALUES LESS THAN ('l')
+	(PARTITION lastname_13 VALUES LESS THAN ('m')
+	(PARTITION lastname_14 VALUES LESS THAN ('n')
+	(PARTITION lastname_15 VALUES LESS THAN ('o')
+	(PARTITION lastname_16 VALUES LESS THAN ('p')
+	(PARTITION lastname_17 VALUES LESS THAN ('q')
+	(PARTITION lastname_18 VALUES LESS THAN ('r')
+	(PARTITION lastname_19 VALUES LESS THAN ('s')
+	(PARTITION lastname_20 VALUES LESS THAN ('t')
+	(PARTITION lastname_21 VALUES LESS THAN ('u')
+	(PARTITION lastname_22 VALUES LESS THAN ('v')
+	(PARTITION lastname_23 VALUES LESS THAN ('w')
+	(PARTITION lastname_24 VALUES LESS THAN ('x')
+	(PARTITION lastname_25 VALUES LESS THAN ('y')
+	(PARTITION lastname_26 VALUES LESS THAN ('z')
+
+
+
+
+
+
+Table created.
+
+
+
+
+SQL> CREATE TABLE COURSE
+  2  (ID NUMBER(6),
+  3  COURSENO NUMBER(6),
+  4  NAME VARCHAR2(30),
+  5  PREREQ VARCHAR2(50),
+  6  DEPTID NUMBER(5),
+  7  CONSTRAINT course_id_pk PRIMARY KEY(ID),
+  8  CONSTRAINT course_deptid_fk FOREIGN KEY(DEPTID) REFERENCES DEPARTMENT(ID));
+
+Table created.
+
+
+
+
+SQL> CREATE TABLE SECTION 
+  2  (ID NUMBER(6),
+  3  SECTIONNO NUMBER(6),
+  4  COURSEID NUMBER(6),
+  5  LOCATIONID NUMBER(10),
+  6  STARTTIME VARCHAR2(6),
+  7  ENDTIME VARCHAR2(6),
+  8  STARTDATE VARCHAR2(25),
+  9  ENDDATE VARCHAR2(25),
+ 10  USERID NUMBER(8),
+ 11  CONSTRAINT section_id_pk PRIMARY KEY(ID),
+ 12  CONSTRAINT section_courseid_fk FOREIGN KEY(COURSEID) REFERENCES COURSE(ID),
+ 13  CONSTRAINT section_locationid_fk FOREIGN KEY(LOCATIONID) REFERENCES LOCATION(ID),
+ 14  CONSTRAINT section_userid_fk FOREIGN KEY(USERID) REFERENCES USERR(ID));
+
+Table created.
+
+
+
+
+SQL> CREATE TABLE RESIDENT
+  2  (ID NUMBER(6),
+  3  NAME VARCHAR2(20),
+  4  FEESCHEDULE VARCHAR2(15),
+  5  CONSTRAINT resident_id_pk PRIMARY KEY(ID));
+
+Table created.
+
+
+
+
+SQL> CREATE TABLE PAYMENT
+  2  (ID NUMBER(12),
+  3  NAME VARCHAR2(30),
+  4  CONSTRAINT table_id_pk PRIMARY KEY(ID));
+
+Table created.
+
+
+
+
+SQL> CREATE TABLE PAYMENT
+  2  (ID NUMBER(12),
+  3  NAME VARCHAR2(30),
+  4  CONSTRAINT payment_id_pk PRIMARY KEY(ID))
+	PARTITIONING BY RANGE(ID)
+	(PARTITION payment_1 VALUES LESS THAN (100000000000)
+	(PARTITION payment_2 VALUES LESS THAN (200000000000)
+	(PARTITION payment_3 VALUES LESS THAN (300000000000)
+	(PARTITION payment_4 VALUES LESS THAN (400000000000)
+	(PARTITION payment_5 VALUES LESS THAN (500000000000)
+	(PARTITION payment_6 VALUES LESS THAN (600000000000)
+	(PARTITION payment_7 VALUES LESS THAN (700000000000)
+	(PARTITION payment_8 VALUES LESS THAN (800000000000)
+	(PARTITION payment_9 VALUES LESS THAN (900000000000)
+	(PARTITION payment_9 VALUES LESS THAN (999999999999)
+
+Table created.
+
+
+
+SQL> CREATE TABLE STUDENT_REGISTRATION
+  2  (ID NUMBER(12),
+  3  STUDENTID NUMBER(8),
+  4  SECTIONID NUMBER(6),
+  5  FEESTATUS NUMBER(2),
+  6  PAYMENTID NUMBER(10),
+  7  CONSTRAINT registration_id_pk PRIMARY KEY(ID),
+  8  CONSTRAINT registration_studentid_fk FOREIGN KEY(STUDENTID) REFERENCES USERR(ID),
+  9  CONSTRAINT registration_sectionid_fk FOREIGN KEY(SECTIONID) REFERENCES SECTION(ID),
+ 10  CONSTRAINT registration_paymentid_fk FOREIGN KEY(PAYMENTID) REFERENCES PAYMENT(ID));
+
+Table created.
+
+
+
+#TABLESPACE
+
+SQL> CREATE TABLESPACE college_information             
+  2  DATAFILE 'collegefiles_01.f'
+  3  SIZE 1M             
+  4  EXTENT MANAGEMENT LOCAL 
+  5  SEGMENT SPACE MANAGEMENT AUTO;
+
+
+
+
+
+Since the number of new students and (employees) keeps increasing every quarter/semester by the thousands, the USER table will hold lots of data, and in order to make data retrieval faster, I've decided to partition the LASTNAME column by range. By letter of the alphabet. So, if you know the last name of a student, (e.g., Benzema), we can simply search for Benzema among the rest of the lastnames starting with 'B'.
+
+Similarly, since every quarter/semester students must pay multiple fees (often separate payments), the table PAYMENTS will increase even at a higher rate than the USER table. Thus, if we want to find a certain payment, provided that we have the PAYMENTID number, we can make a quick search by partioning by paymentID, beginning with the number 1, and those with 2, and those with 3, and so on.
