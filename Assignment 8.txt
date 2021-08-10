@@ -7,6 +7,11 @@ Ulises Marian
 
 
 
+Write DML Statements to simulate the following Business Processes:
+
+1. Setup a department, course within a department with 2 sections. Section must have a location assigned. Produce a report showing the department, its course and sections (with complete section information).
+
+
 SQL> insert into LOCATION values (8294317042, 'San Diego');
 SQL> insert into COLLEGE values (29041, 'San Diego College', '9711 Muir St. La Jolla', 619220199);
 SQL> insert into DEPARTMENT values (21345, 'Humanities', 8294317042, 29041);
@@ -30,6 +35,10 @@ Humanities				 Philosophy of Language 	     32481	    9	   90996 8294317042 13:0
 
 
 
+
+
+
+2. Now register a student to a section and process student payment.Produce a report showing student registration information, including payment information.
 
 SQL> select st.*, p.*
   2  from STUDENT_REGISTRATION st, PAYMENT p
