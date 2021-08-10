@@ -6,7 +6,6 @@ Ulises Marian
 08/03/2021
 
 
-
 Write DML Statements to simulate the following Business Processes:
 
 1. Setup a department, course within a department with 2 sections. Section must have a location assigned. Produce a report showing the department, its course and sections (with complete section information).
