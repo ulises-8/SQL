@@ -7,7 +7,7 @@ Ulises Marian
 
 
 
-1)
+#1. Display the manager number and the salary of the lowest paid employee for that manager. Exclude anyone whose manager is not known. Exclude any groups where the minimum salary is less than $1000. Sort the output in descending order of salary.
 
 #using self join
 
@@ -48,9 +48,7 @@ SQL> SELECT e.mgr, MIN(ee.sal) SAL
 
 
 
-
-
-2)
+#2. Write a query to display the department name, location name, number of employees, and the average salary for all employees in that department. Label the columns dname, loc, Number of People, and Salary, respectively.
 
 
 SQL> SELECT d.dname "DNAME", d.loc "LOC",   
@@ -72,8 +70,7 @@ OPERATIONS     BOSTON			    0
 
 
 
-
-3) 
+#3. Write a query to display department names with salary grade, minimum salary and average commission. For departments with null commission, you should display 0. (salgrade table can be used for getting salary grade).
 
 
 SQL> SELECT d.dname, s.grade, e.sal, AVG (NVL(ee.comm, 0)) "AVERAGE COMMISSION"
@@ -95,11 +92,9 @@ ACCOUNTING		2	1300		      0
 
 
 
+#4. What is difference between COUNT(*), COUNT(col_name), COUNT(DISTINCT(col_name)), COUNT(ALL(col_name))? Explain with examples.
 
 
-
-
-4)
 - COUNT(*) returns the number of rows in a table
 
 SQL> select count(*)
@@ -153,8 +148,8 @@ It returns 4, just like COUNT(comm)
 
 
 
+#5. Display the employee number, name, salary, and salary increase by 15% expressed as a whole number. Label the column New Salary.
 
-5) 
 
 SQL> SELECT empno, ename, sal, TRUNC(sal + sal * .15) "NEW SALARY"
   2  FROM emp;
