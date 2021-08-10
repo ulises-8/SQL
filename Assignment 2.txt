@@ -5,7 +5,7 @@ Ulises Marian
 07/08/2021
 07/08/2021
 
-1a.
+1a. Write a simple query to display the name, job, hire date and employee number of each employee from the emp table
 
 SQL> select ename, job, hiredate, empno
      from emp;
@@ -34,7 +34,7 @@ MILLER	   CLERK     23-JAN-82	     7934
 14 rows selected.
 
 
-1b.
+1b. Now, display all employees in the emp table including all columns.  
 
 SQL> select * from emp;
 
@@ -108,7 +108,7 @@ SQL> select * from emp;
 14 rows selected.
 
 
-1c.
+1c. Now rewrite the query to display names of all employees, making sure that two employees with same name don't appear twice in the result set.
 
 SQL> select distinct ename
   2  from emp;
@@ -135,7 +135,10 @@ MARTIN
 
 14 rows selected.
 
-2.
+
+2. Write a query to add a record to the emp table:
+
+EMPNO: 1456  ENAME: John Smith  JOB: Analyst  SAL: 2000  HIREDATE: 1/1/02  COMM:  DEPTNO: 20  MGR: 7566
 
 SQL> insert into emp(empno, ename, job, sal, hiredate, deptno, mgr)
   2  values('1456', 'John Smith', 'Analyst', '2000', '01-JAN-02', '20', '7566');
@@ -220,7 +223,7 @@ SQL> select * from emp;
 15 rows selected.
 
 
-3.
+3. Show how will you modify the above record to reflect SAL = 3000
 
 SQL> update emp
      set sal = 3000
@@ -303,7 +306,8 @@ SQL> select * from emp;
 
 15 rows selected.
 
-4a.
+
+4a. Write a SQL statement to show the employee number, employee name, hiredate of employees where name has 2 L's
 
 SQL> select empno, ename, hiredate
      from emp
@@ -314,7 +318,8 @@ SQL> select empno, ename, hiredate
       7499 ALLEN      20-FEB-81
       7934 MILLER     23-JAN-82
 
-4b.
+
+4b. Now from the above result set, display the same fields, for employees whose names end with "N". 
 
 SQL> select empno, ename, job
      from emp
@@ -325,7 +330,8 @@ SQL> select empno, ename, job
 ---------- ---------- ---------
       7499 ALLEN      SALESMAN
 
-5.
+
+5. Display all the fields of dept table, where location is BOSTON. 
 
 SQL> select * from dept
      where loc = 'BOSTON';
@@ -334,7 +340,8 @@ SQL> select * from dept
 ---------- -------------- -------------
 	40 OPERATIONS	  BOSTON
 
-6.
+
+6. Display employee number, employee name, department number, job for an employee who is not a manager and is not a clerk in department number 10. 
 
 SQL> select empno, ename, deptno, job
      from emp
@@ -355,7 +362,7 @@ SQL> select empno, ename, deptno, job
 
 
 
-7.
+7. Display all employees whose commission is greater than zero and salary is between 1000 and 3000. 
 
 SQL> select *
      from emp
@@ -374,7 +381,8 @@ SQL> select *
       7521 WARD       SALESMAN	      7698 22-FEB-81	   1250        500
 	30
 
-8a.
+
+8a. Write a SQL statement to show employees, who don't have any managers. 
 
 SQL> select *
      from emp
@@ -387,7 +395,8 @@ SQL> select *
       7839 KING       PRESIDENT 	   17-NOV-81	   5000
 	10
 
-8b.
+
+8b. Write a SQL statement to display employee number, employee name, salary, manager for all employees, whose managers have employee numbers 7566, 7788
 
 SQL> select empno, ename, sal, mgr
      from emp
