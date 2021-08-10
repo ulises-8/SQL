@@ -46,3 +46,6 @@ Relationships
 7. Resident has zero or more users
 8. Payment has one and only one student registration
 9. Location has zero or more departments
+
+
+https://github.com/ulises-8/SQL/blob/main/DB%20Design:Crow%20Notation.png?raw=true
