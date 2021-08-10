@@ -1,7 +1,6 @@
 Oracle SQL
 Lab Assignment #8
 Ulises Marian
-0936
 08/04/2021
 08/03/2021
 
